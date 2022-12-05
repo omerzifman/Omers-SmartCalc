@@ -3,6 +3,7 @@ PRIORITY_DICT = {
         '(' : 7,
         '!' : 6,
         '~' : 6,
+        '#' : 6,
         '@' : 5,
         '&' : 5,
         '$' : 5,
@@ -14,8 +15,8 @@ PRIORITY_DICT = {
         '+' : 1,
         ')' : 0
     }
-LEFT_OPERATORS = ['~']
-RIGHT_OPERATORS = ['!']
+LEFT_OPERATORS = ['~'] # for operators that need the number to be on the left
+RIGHT_OPERATORS = ['!', '#'] # for operators that need the number to be on the right
 
 def __add__(x, y) -> float:
     """
@@ -110,6 +111,23 @@ def __tildes__(x) -> float:
     return the tildes of x in a float form
     """
     return (-1)*x
+
+def __sum__(x) -> float:
+    """
+    gets 1 float - x
+    return the sum of  all digits of x in a int form
+    """
+    sign = 1 #the x sign
+    if(x < 0):
+        sign = -1 #the x sign
+        x *= (-1)
+    if(x%1 != 0):
+        raise AmathematicalException("digits sum isnt valid for unNatural numbers")
+    x = int(x) # x has to be a natural number
+    sum = 0
+    for digit in str(x): 
+        sum += int(digit)      
+    return sum*sign #returns the sign to the sum
 
 def getPriorities():
     return PRIORITY_DICT
