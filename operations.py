@@ -137,3 +137,31 @@ def getLeftOperators():
 
 def getRightOperators():
     return RIGHT_OPERATORS
+
+OPERATORS_DICT = { #helps for PerformANoperation func
+        '!' : __factorial__,
+        '~' : __tildes__,
+        '@' : __avg__,
+        '&' : __min__,
+        '$' : __max__,
+        '%' : __module__,
+        '^' : __pow__,
+        '/' : __div__,
+        '*' : __mul__,
+        '-' : __sub__,
+        '+' : __add__
+    }
+
+def PerformANoperation(operator: str, x: float, y: float) ->float:
+    """
+    gets the operantor and numbers to pereform the operation on - x,y (if needed)
+    returns the ans of the operation on those numbers
+    """
+    if(operator in getRightOperators()):
+        return OPERATORS_DICT[operator](x)
+    elif(operator in getLeftOperators()):
+        return OPERATORS_DICT[operator](x)
+    elif(operator in getPriorities()):
+        return OPERATORS_DICT[operator](x,y)
+    else:
+        raise notAmathematicalOperation(operator)
