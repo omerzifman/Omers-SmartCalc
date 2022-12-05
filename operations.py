@@ -141,6 +141,7 @@ def getRightOperators():
 OPERATORS_DICT = { #helps for PerformANoperation func
         '!' : __factorial__,
         '~' : __tildes__,
+        '#' : __sum__,
         '@' : __avg__,
         '&' : __min__,
         '$' : __max__,
