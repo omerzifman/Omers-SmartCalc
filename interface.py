@@ -8,3 +8,4 @@ def showError(err: Exception):
     print("---------Error!---------")
     print("//"+ err.getName())
     print(err.getMessage())
+    print(err.getEquation())
