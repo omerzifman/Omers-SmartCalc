@@ -196,19 +196,22 @@ def solve(mathematical_equation:str) -> float:
 
 def calculator(): #init for first run
     show(WELCOME_MESSAGE)
-    mathematical_equation = get("Please enter the mathematical equation: \n")
+    mathematical_equation = None
+    while(mathematical_equation == None): #if there was a problem with the input it will be re-entered
+        mathematical_equation = get("Please enter the mathematical equation: \n")
     mathematical_equation = solve(mathematical_equation)
     show(mathematical_equation)
 
 #)
 
 def main():#replace by index insted off slising
-    try:
+    calculator()
+    """try:
         calculator()
     except Exception as err: #for raised exceptions
         if not(isinstance(err, EOFError)):
             showError(err)
         else: # if input is EOF
-            showError(missingNumber("equation"))
+            showError(missingNumber("equation"))"""
 if __name__ == "__main__":
     main()

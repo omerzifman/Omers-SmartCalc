@@ -2,7 +2,11 @@ def show(massage: str):
     print(massage)
 
 def get(massage: str) -> str:
-    return input(massage)
+    try:
+        return input(massage)
+    except EOFError: #if the input is ^Z
+        show("input not valid")
+        return None
 
 def showError(err: Exception):
     print("---------Error!---------")
