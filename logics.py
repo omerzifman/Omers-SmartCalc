@@ -185,6 +185,8 @@ def solve(mathematical_equation:str) -> float:
         index = getIndexByPrioritie(mathematical_equation, maxPrioritie(mathematical_equation)) # the index of the first appearance of the max prioritie operator
         if(mathematical_equation[index] == '('):
             mathematical_equation = removeBrackets(mathematical_equation, index) #the mathematical_equation with the brackets solved
+        elif(mathematical_equation[index] == ')'):
+            raise missingOperator('(', mathematical_equation) #if there is only ) without a (
         elif(mathematical_equation[index] in getRightOperators()):
             mathematical_equation = OperatorOnRight(mathematical_equation, index)
         elif(mathematical_equation[index] in getLeftOperators()):
@@ -199,7 +201,10 @@ def calculator(): #init for first run
     mathematical_equation = None
     while(mathematical_equation == None): #if there was a problem with the input it will be re-entered
         mathematical_equation = get("Please enter the mathematical equation: \n")
-    mathematical_equation = solve(mathematical_equation)
+    try:
+        mathematical_equation = solve(mathematical_equation)
+    except Exception as err:
+        showError(err)
     show(mathematical_equation)
 
 #)
