@@ -203,7 +203,13 @@ def calculator(): #init for first run
         mathematical_equation = get("Please enter the mathematical equation: \n")
     try:
         mathematical_equation = solve(mathematical_equation)
-    except Exception as err:
+    except notAmathematicalOperation as err:
+        showError(err)
+    except AmathematicalException as err:
+        showError(err)
+    except missingOperator as err:
+        showError(err)
+    except missingNumber as err:
         showError(err)
     show(mathematical_equation)
 
