@@ -54,9 +54,9 @@ def __pow__(x,y) -> float:
     return the power of y on x in a float form
     """
     if(x < 0 and 1<y<0):
-        return AmathematicalException("cant do power on "+ str(x) + " " + str(y))
+        raise AmathematicalException("cant do power on "+ str(x) + " " + str(y))
     elif(y < 0 and 1<x<0):
-        return AmathematicalException("cant do power on "+ str(x) + " " + str(y))
+        raise AmathematicalException("cant do power on "+ str(x) + " " + str(y))
     return x**y
 
 def __module__(x,y) -> float:
