@@ -7,6 +7,9 @@ def get(massage: str) -> str:
     except EOFError: #if the input is ^Z
         show("input not valid")
         return None
+    except KeyboardInterrupt: #if the input is ^C
+        show("input not valid")
+        return None
 
 def showError(err: Exception):
     print("---------Error!---------")

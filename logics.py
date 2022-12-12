@@ -258,7 +258,7 @@ def solve(mathematical_equation:str) -> float:
 def calculator(): #init for first run
     show(WELCOME_MESSAGE)
     mathematical_equation = None
-    while(mathematical_equation == None): #if there was a problem with the input it will be re-entered
+    while(mathematical_equation == None or mathematical_equation == ""): #if there was a problem with the input it will be re-entered
         mathematical_equation = get("Please enter the mathematical equation: \n")
     #try to solve the equstion
     try:
