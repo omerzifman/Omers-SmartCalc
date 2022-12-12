@@ -275,14 +275,8 @@ def calculator(): #init for first run
 
 
 
-def main():#replace by index insted off slising
+def main():
     calculator()
-    """try:
-        calculator()
-    except Exception as err: #for raised exceptions
-        if not(isinstance(err, EOFError)):
-            showError(err)
-        else: # if input is EOF
-            showError(missingNumber("equation"))"""
+
 if __name__ == "__main__":
     main()
