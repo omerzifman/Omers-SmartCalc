@@ -18,6 +18,8 @@ PRIORITY_DICT = {
 LEFT_OPERATORS = ['~'] # for operators that need the number to be on the left
 RIGHT_OPERATORS = ['!', '#'] # for operators that need the number to be on the right
 
+#funcs return float or int, depends on the x and y types
+#funcs can get ints or floats -> nums
 def __add__(x, y) -> float:
     """
     gets 2 floats - x,y
@@ -94,7 +96,7 @@ def __avg__(x,y) -> float:
 def __factorial__(x) -> int:
     """
     gets 1 floats - x
-    return the factorial of x in a float form
+    return the factorial of x in a int form
     """
     if(x < 0):
         raise AmathematicalException("factorial isnt valid for neg numbers")
@@ -156,13 +158,13 @@ OPERATORS_DICT = { #helps for PerformANoperation func
 def PerformANoperation(operator: str, x: float, y: float) ->float:
     """
     gets the operantor and numbers to pereform the operation on - x,y (if needed)
-    returns the ans of the operation on those numbers
+    returns the outcome of the operation on those numbers
     """
     if(operator in getRightOperators()):
         return OPERATORS_DICT[operator](x)
     elif(operator in getLeftOperators()):
         return OPERATORS_DICT[operator](x)
-    elif(operator in getPriorities()):
+    elif(operator in getPriorities()): # for operator that needs 2 nums
         return OPERATORS_DICT[operator](x,y)
     else:
-        raise notAmathematicalOperation(operator)
+        raise notAmathematicalOperation(operator) # if the operator isnt known
