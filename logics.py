@@ -66,7 +66,7 @@ def isLegalDot(equation: str, dotIndex: int) -> bool:
 
 def isNegNum(equation: str, NegIndex: int) -> bool:
     """
-    gets an equation the index of the char we need to chack
+    gets an equation and the index of the char we need to chack
     returns if the neg sign in the index is a part of a negnum (false if operator)
     """
     if(equation[NegIndex] != '-'):
@@ -102,22 +102,32 @@ def removeNegs(equation: str) -> str:
     """
     gets an equation
     returns the equation without duplicates neg signs
-    --- will turn to "-" || ---- will turn to ""
+    --- will turn to "-" || ---- will turn to "+"/"" ""
     """
     length = len(equation)-1 # the func runs till i+1
     i = 0
     while(i < length): # runs on the equation and removes neg signs
-        if(isNegNum(equation, i)):
+        if(equation[i] == '-'):
             k = i #if there are several - together, i is the beggining of the neg signs and k is the end
-            while(k < length-1):
-                if(isNegNum(equation, k+1)):
+            while(k < length):
+                if(equation[k+1] == '-'):
                     k += 1
                 else:
                     break
-            if((i-k) % 2 !=0):
-                equation = equation[0: i:] + equation[k + 1::] #leaves one neg sign, UNdual num of neg signs
-            else:
-                equation = equation[0: i+1:] + equation[k + 1::] #remove the negs entirely, dual num of neg signs
+            if(k != i): # if there is nmore then one '-', we need to remove some of them
+                if((k-i) % 2 == 0):
+                    equation = equation[0: i+1:] + equation[k+1::] #leaves one neg sign, UNdual num of neg signs
+                else:
+                    if(i > 0 and equation[i-1] in getPriorities()): #if the negs have operator befor them you can remove then entirely
+                        if(equation[i-1] != ')' or equation[k+1] in getPriorities()): # () are converted to a num, nums have an operator between them
+                            equation = equation[0: i:] + equation[k+1::] #remove the negs entirely, dual num of neg signs
+                        else:
+                            equation = equation[0: i:] + '+' + equation[k+1::] 
+                    else: # leaves + instad of all the negs
+                        if(equation[k+1] in getLeftOperators()): # () are converted to a num, nums have an operator between them
+                            equation = equation[0: i:] + equation[k+1::] #remove the negs entirely, dual num of neg signs
+                        else:
+                            equation = equation[0: i:] + '+' + equation[k+1::]
         i+=1
         length = len(equation)-1
     return equation
@@ -239,8 +249,8 @@ def OperatorOnCenter(mathematical_equation: str, operatorIndex: int) -> str:
 
 def solve(mathematical_equation:str) -> float:
     mathematical_equation = removeSpaces(mathematical_equation) # removes speces
-    mathematical_equation = removeNegs(mathematical_equation) #removes unwanted neg signs
     while not(isNum(mathematical_equation)): #run until all the operands executed
+        mathematical_equation = removeNegs(mathematical_equation) #removes unwanted neg signs
         index = getIndexByPrioritie(mathematical_equation, maxPrioritie(mathematical_equation)) # the index of the first appearance of the max prioritie operator
         if(mathematical_equation[index] == '('):
             mathematical_equation = removeBrackets(mathematical_equation, index) #the mathematical_equation with the brackets solved
