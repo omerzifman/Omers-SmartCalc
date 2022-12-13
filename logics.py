@@ -122,12 +122,12 @@ def removeNegs(equation: str) -> str:
                         if(equation[i-1] != ')' or equation[k+1] in getPriorities()): # () are converted to a num, nums have an operator between them
                             equation = equation[0: i:] + equation[k+1::] #remove the negs entirely, dual num of neg signs
                         else:
-                            equation = equation[0: i:] + '+' + equation[k+1::] 
-                    else: # leaves + instad of all the negs
-                        if(equation[k+1] in getLeftOperators()): # () are converted to a num, nums have an operator between them
+                            equation = equation[0: i:] + '+' + equation[k+1::] # leaves + instad of all the negs
+                    else: 
+                        if(equation[k+1] in getLeftOperators()): # ~ can have a + befor it because it can return a neg num
                             equation = equation[0: i:] + equation[k+1::] #remove the negs entirely, dual num of neg signs
                         else:
-                            equation = equation[0: i:] + '+' + equation[k+1::]
+                            equation = equation[0: i:] + '+' + equation[k+1::] # leaves + instad of all the negs
         i+=1
         length = len(equation)-1
     return equation
